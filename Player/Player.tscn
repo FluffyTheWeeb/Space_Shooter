@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player/animacion spaceship.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
@@ -26,12 +26,12 @@ region = Rect2( 74, 0, 37, 58 )
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ) ],
-"loop": true,
+"loop": false,
 "name": "right",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 3 ), SubResource( 4 ) ],
-"loop": true,
+"loop": false,
 "name": "left",
 "speed": 5.0
 }, {
@@ -41,22 +41,27 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=7]
-radius = 22.8075
-
 [node name="Player" type="Area2D"]
-position = Vector2( 198.676, 541.027 )
 scale = Vector2( 2, 2 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
 speed = 300.0
+fireDelay = 0.15
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -4.012, 0 )
 frames = SubResource( 6 )
 animation = "straight"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 2.15382, -0.280933 )
-shape = SubResource( 7 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -14.0498, 13.6816, -0.240883, 22.0338, 14.0135, 14.0157, 13.9021, 7.4453, 5.34162, 0.168552, 0.252542, -23.6917, -5.83767, -1.08286, -13.6044, 6.99985 )
+
+[node name="FiringPositions" type="Node2D" parent="."]
+
+[node name="Gun" type="Node2D" parent="FiringPositions"]
+position = Vector2( -0.0289999, -22.5 )
+
+[node name="FireDelayTime" type="Timer" parent="."]
+one_shot = true
